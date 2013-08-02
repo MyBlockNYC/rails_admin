@@ -17,7 +17,9 @@
   $.widget("ra.filteringSelect", {
     options: {
       createQuery: function(query) {
-        return { query: query };
+        return {
+          query: query
+        };
       },
       minLength: 0,
       searchDelay: 200,
@@ -36,7 +38,10 @@
         this.options.source = this.options.remote_source;
       } else {
         this.options.source = select.children("option").map(function() {
-          return { label: $(this).text(), value: this.value };
+          return {
+            label: $(this).text(),
+            value: this.value
+          };
         }).toArray();
       }
       var filtering_select = $('<div class="input-append filtering-select" style="float:left"></div>')
@@ -61,7 +66,7 @@
           change: function(event, ui) {
             if (!ui.item) {
               var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex($(this).val()) + "$", "i"),
-                  valid = false;
+                valid = false;
               select.children("option").each(function() {
                 if ($(this).text().match(matcher)) {
                   this.selected = valid = true;
@@ -72,7 +77,7 @@
                 // remove invalid value, as it didn't match anything
                 $(this).val(null);
                 select.html($('<option value="" selected="selected"></option>'));
-                input.data("autocomplete").term = "";
+                input.data("ui-autocomplete").term = "";
                 $(self.element.parents('.controls')[0]).find('.update').addClass('disabled');
                 return false;
               }
@@ -88,13 +93,13 @@
           }
         })
 
-      if(select.attr('placeholder'))
+      if (select.attr('placeholder'))
         input.attr('placeholder', select.attr('placeholder'))
 
-      input.data("autocomplete")._renderItem = function(ul, item) {
+      input.data("ui-autocomplete")._renderItem = function(ul, item) {
         return $("<li></li>")
-          .data("item.autocomplete", item)
-          .append( $( "<a></a>" ).html( item.label || item.id ) )
+          .data("item.ui-autocomplete", item)
+          .append($("<a></a>").html(item.label || item.id))
           .appendTo(ul);
       };
 
@@ -129,7 +134,7 @@
                 "(?![^&;]+;)(?!<[^<>]*)(" +
                 $.ui.autocomplete.escapeRegex(request.term) +
                 ")(?![^<>]*>)(?![^&;]+;)", "gi"
-             ), "<strong>$1</strong>") : el.id,
+              ), "<strong>$1</strong>") : el.id,
             value: el.label || el.id,
             id: el.id || el.value
           };
@@ -140,7 +145,7 @@
     _getSourceFunction: function(source) {
 
       var self = this,
-          requestIndex = 0;
+        requestIndex = 0;
 
       if ($.isArray(source)) {
 
