@@ -77,7 +77,7 @@
                 // remove invalid value, as it didn't match anything
                 $(this).val(null);
                 select.html($('<option value="" selected="selected"></option>'));
-                input.data("autocomplete").term = "";
+                input.data("ui-autocomplete").term = "";
                 $(self.element.parents('.controls')[0]).find('.update').addClass('disabled');
                 return false;
               }
@@ -98,7 +98,7 @@
 
       input.data("ui-autocomplete")._renderItem = function(ul, item) {
         return $("<li></li>")
-          .data("ui-autocomplete-item", item)
+          .data("ui-autocomplete-input", item)
           .append($("<a></a>").html(item.label || item.id))
           .appendTo(ul);
       };
